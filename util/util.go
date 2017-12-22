@@ -6,6 +6,16 @@ import (
 	"time"
 )
 
+type SortFunc func(arr []int, n int)
+
+//获取sort 排序执行的时间
+func ExecuteTime(sort SortFunc, arr []int, n int) float64 {
+	start := time.Now()
+	sort(arr, n)
+	delta := time.Now().Sub(start)
+	return float64(delta) / 1e9
+}
+
 //交换两个元素值
 func Swap(i *int, j *int) {
 	var temp *int = i
