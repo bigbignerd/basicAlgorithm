@@ -1,5 +1,9 @@
 package merge
 
+import (
+	"math"
+)
+
 //思路就是拆分+比较+合并 归成有序序列 时间复杂度nlogn
 func Sort(arr []int, n int) {
 	// mergesort(arr, 0, n-1)
@@ -29,6 +33,17 @@ func mergesortv2(arr []int, l int, r int) {
 	//这个优化 对于近乎有序的序列有很大的速度提升
 	if arr[mid] > arr[mid+1] {
 		merge(arr, l, mid, r)
+	}
+}
+
+//自底向上的归并排序
+func SortBU(arr []int, n int) {
+	//size 从1 到 2xsize 不断循环
+	for size := 1; size <= n; size += size {
+		for i := 0; i+size < n; i += size + size {
+			right := math.Min(float64(i+size+size-1), float64(n-1))
+			merge(arr, i, i+size-1, int(right))
+		}
 	}
 }
 

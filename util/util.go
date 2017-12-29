@@ -37,6 +37,11 @@ func RandArr(num int, min int, max int) []int {
 	return arr
 }
 
+//生成随机数
+func RandNumber(min int, max int) int {
+	return rand.Int()%(max-min+1) + min
+}
+
 //是否已经正确的按从小到大排序
 func IsSortedAsc(arr []int, n int) bool {
 	for i := 0; i < n-1; i++ {
