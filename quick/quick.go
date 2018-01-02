@@ -11,6 +11,12 @@ func Sort(arr []int, n int) {
 func SortV3(arr []int, n int) {
 	quickSortV3(arr, 0, n-1)
 }
+
+//v4版本针对大量重复元素的优化：
+//三路快排中心思想是：将数组分为 < v; ==v; > v 三部分，然后对小于v和大于v的部分进行快速排序
+func SortV4(arr []int, n int) {
+	quickSortV4(arr, 0, n-1)
+}
 func quickSort(arr []int, l int, r int) {
 	if l >= r {
 		return
@@ -34,7 +40,29 @@ func quickSortV3(arr []int, l int, r int) {
 	quickSortV3(arr, l, p-1)
 	quickSortV3(arr, p+1, r)
 }
-
+func quickSortV4(arr []int, l int, r int) {
+	if l >= r {
+		return
+	}
+	util.Swap(&arr[l], &arr[util.RandNumber(l, r)])
+	v := arr[l]
+	lt, gt, i := l, r+1, l+1
+	for i < gt {
+		if arr[i] < v {
+			util.Swap(&arr[i], &arr[lt+1])
+			lt++
+			i++
+		} else if arr[i] > v {
+			util.Swap(&arr[i], &arr[gt-1])
+			gt--
+		} else { // == v
+			i++
+		}
+	}
+	util.Swap(&arr[l], &arr[lt])
+	quickSortV4(arr, l, lt-1)
+	quickSortV4(arr, gt, r)
+}
 func partition(arr []int, l int, r int) int {
 	j := l      //j为分界点[l,j] 都为小于arr[l]的元素[j+1,r]为大于arr的元素
 	v := arr[l] //第一个元素的值
