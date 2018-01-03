@@ -4,6 +4,7 @@ import (
 	"github.com/bigbignerd/basicAlgorithm/util"
 )
 
+//快速排序应用：求数组中第n大的元素
 //快速排序思想：选定一个元素 比较 使得左侧的元素都小于它 右侧都是大于它的，递归执行
 func Sort(arr []int, n int) {
 	quickSort(arr, 0, n-1)

@@ -4,7 +4,8 @@ import (
 	"math"
 )
 
-//思路就是拆分+比较+合并 归成有序序列 时间复杂度nlogn
+//归并排序应用：求数组元素中逆序对的个数
+//归并排序思路：就是拆分+比较+合并 归成有序序列 时间复杂度nlogn
 func Sort(arr []int, n int) {
 	// mergesort(arr, 0, n-1)
 	mergesortv2(arr, 0, n-1)

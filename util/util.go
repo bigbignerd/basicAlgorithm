@@ -27,7 +27,7 @@ func RandArr(num int, min int, max int) []int {
 	if max <= min {
 		log.Fatal("max的值小于或等于min的值")
 	}
-	source := rand.NewSource(time.Now().Unix())
+	source := rand.NewSource(time.Now().UnixNano())
 	randWithSource := rand.New(source)
 
 	arr := make([]int, num)
@@ -39,7 +39,9 @@ func RandArr(num int, min int, max int) []int {
 
 //生成随机数
 func RandNumber(min int, max int) int {
-	return rand.Int()%(max-min+1) + min
+	source := rand.NewSource(time.Now().UnixNano())
+	randWithSource := rand.New(source)
+	return randWithSource.Int()%(max-min+1) + min
 }
 
 //是否已经正确的按从小到大排序
