@@ -53,6 +53,11 @@ func IsSortedAsc(arr []int, n int) bool {
 	}
 	return true
 }
+func printNum(arr []int, k int) {
+	for i := k - 10; i < k+10; i++ {
+		log.Printf("%d,", arr[i])
+	}
+}
 
 //是否已经正确的按从大到小排序
 func IsSortedDesc(arr []int, n int) bool {

@@ -2,6 +2,7 @@ package heap
 
 import (
 	"github.com/bigbignerd/basicAlgorithm/util"
+	// "log"
 )
 
 //最大堆定义：每个节点有两个子节点，每个节点的元素值都要小于其父节点的元素值 的一棵满二叉树
@@ -22,9 +23,14 @@ func (m *MaxHeap) IsEmpty() bool {
 
 //堆中插入元素
 func (m *MaxHeap) Insert(item int) {
-	m.Data[m.count+1] = item
+	if m.count > len(m.Data)-1 {
+		// panic("insert fail.")
+		return 0
+	}
 	m.count++
+	m.Data[m.count] = item
 	m.shiftUp(m.count)
+
 }
 
 func (m *MaxHeap) shiftUp(k int) {
@@ -52,10 +58,11 @@ func (m *MaxHeap) shiftDown(k int) {
 	for 2*k <= m.count {
 		j := 2 * k
 		//比较左右节点的大小
-		for j+1 <= m.count && m.Data[j+1] > m.Data[j] {
+		//之前的bug:这里的if判断写成了for 造成排序结果出错
+		if j+1 <= m.count && m.Data[j] < m.Data[j+1] {
 			j += 1
 		}
-		//位置不需要移动的情况
+		//和左右子树中较大的一个比较，位置不需要移动的情况
 		if m.Data[k] >= m.Data[j] {
 			break
 		}
