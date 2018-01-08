@@ -39,9 +39,8 @@ func RandArr(num int, min int, max int) []int {
 
 //生成随机数
 func RandNumber(min int, max int) int {
-	source := rand.NewSource(time.Now().UnixNano())
-	randWithSource := rand.New(source)
-	return randWithSource.Int()%(max-min+1) + min
+	rand.Seed(time.Now().UnixNano())
+	return rand.Int()%(max-min+1) + min
 }
 
 //是否已经正确的按从小到大排序
