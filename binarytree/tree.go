@@ -107,9 +107,10 @@ func (b *BST) Levelorder() {
 	//先将根节点入队
 	l.PushBack(b.root)
 	//出队遍历
-	for e := l.Front(); e != nil; {
-		l.Remove(e) //出队
+	for l.Len() > 0 {
+		e := l.Front()
 		n := e.Value
+		l.Remove(e) //出队
 		log.Printf("%v ", (*n).key)
 		if (*n).left != nil {
 			l.PushBack((*n).left)

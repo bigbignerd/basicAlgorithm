@@ -1,5 +1,9 @@
 package graph
 
+import (
+// "log"
+)
+
 //稀疏图 - 邻接表
 type SparseGraph struct {
 	n, m     int
@@ -7,7 +11,7 @@ type SparseGraph struct {
 	g        [][]int
 }
 
-func NewSGrahp(n int, directed bool) *SparseGraph {
+func NewSGraph(n int, directed bool) *SparseGraph {
 	var g [][]int = make([][]int, n)
 	for k := range g {
 		g[k] = make([]int, 0)
@@ -35,10 +39,11 @@ func (sg *SparseGraph) AddEdge(v, w int) {
 	if v < 0 || v > sg.n-1 || w < 0 || w > sg.n-1 {
 		return
 	}
+	// log.Printf("add %d, %d", v, w)
 	sg.g[v] = append(sg.g[v], w)
 	//自环 或者 无向的情况
-	if v != w && sg.directed {
-		sg.g[w] = append(sg.g[v], w)
+	if v != w && !sg.directed {
+		sg.g[w] = append(sg.g[w], v)
 	}
 	sg.m++
 }

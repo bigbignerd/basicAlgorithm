@@ -37,5 +37,7 @@ func TestBinarySearch(t *testing.T) {
 			t.Logf("%v not found", v)
 		}
 	}
+}
+func TestBf(t *testing.T) {
 
 }
