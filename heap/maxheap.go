@@ -25,7 +25,7 @@ func (m *MaxHeap) IsEmpty() bool {
 func (m *MaxHeap) Insert(item int) {
 	if m.count > len(m.Data)-1 {
 		// panic("insert fail.")
-		return 0
+		return
 	}
 	m.count++
 	m.Data[m.count] = item

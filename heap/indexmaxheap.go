@@ -15,10 +15,10 @@ type IndexMaxHeap struct {
 
 //插入新的元素
 func (h *IndexMaxHeap) Insert(i, item int) error {
-	if h.count+1 > h.cap {
+	if h.count+1 > h.Cap {
 		return errors.New("数量超出容量")
 	}
-	if i+1 < 1 || i+1 > h.cap {
+	if i+1 < 1 || i+1 > h.Cap {
 		return errors.New("index 越界")
 	}
 	//针对用户使用数组是从0开始
@@ -32,6 +32,7 @@ func (h *IndexMaxHeap) Insert(i, item int) error {
 	h.count++
 	//对新添加的最后一个元素 开始执行shift up 操作
 	h.shiftUp(h.count)
+	return nil
 }
 
 func (h *IndexMaxHeap) shiftUp(k int) {
@@ -42,7 +43,6 @@ func (h *IndexMaxHeap) shiftUp(k int) {
 		h.Reverse[h.Indexes[k/2]] = k / 2
 		k /= 2
 	}
-	return nil
 }
 
 //获取最大元素
@@ -111,14 +111,14 @@ func (h *IndexMaxHeap) Change(i int, item int) error {
 	// }
 
 	//优化 通过维护的reverses数组直接找到j
-	j = h.Reverse[i]
+	j := h.Reverse[i]
 	h.shiftDown(j)
 	h.shiftUp(j)
 	return nil
 }
 
-func (h *IndexMaxHeap) contain(i) bool {
-	if i+1 < 1 || i+1 > h.Cap P{
+func (h *IndexMaxHeap) contain(i int) bool {
+	if i+1 < 1 || i+1 > h.Cap {
 		return false
 	}
 	return h.Reverse[i+1] != 0
