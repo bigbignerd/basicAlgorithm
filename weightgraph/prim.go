@@ -50,14 +50,13 @@ func (pmst *PrimMst) visit(v int) {
 		//如果边的另一个端点w未被访问
 		if !pmst.marked[w] {
 			if pmst.edgeTo[w] == nil {
-				pmst.edgeTo[w] = edge
 				pmst.h.Insert(w, edge)
 			} else if pmst.edgeTo[w] != nil && edge.Weight().(float64) < pmst.edgeTo[w].Weight().(float64) {
 				//访问过这个节点，但是新的这个边 权值更小
-				pmst.edgeTo[w] = edge
 				//更新最小堆中的w的值
 				pmst.h.Change(w, edge)
 			}
+			pmst.edgeTo[w] = edge
 		}
 	}
 }
