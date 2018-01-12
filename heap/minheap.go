@@ -2,6 +2,7 @@ package heap
 
 import (
 	"log"
+	"reflect"
 )
 
 //存储任意元素的最小堆实现
@@ -20,12 +21,15 @@ func NewMinHeap(size int) *MinHeap {
 func (mh *MinHeap) Insert(item interface{}) {
 	//堆中元素从1开始
 	mh.count++
+	// log.Printf("count:%d,size:%d", mh.count, len(mh.data))
 	mh.data[mh.count] = item
+
 	mh.shiftup(mh.count)
 }
 func (mh *MinHeap) shiftup(k int) {
 	if k < 1 || k > len(mh.data) {
 		log.Fatal("shift up i 越界")
+		return
 	}
 	//跟父节点进行比较
 	for k/2 >= 1 && mh.less(k, k/2) {
@@ -46,8 +50,8 @@ func (mh *MinHeap) ExtractMin() interface{} {
 	mh.swap(1, mh.count)
 	mh.count--
 	mh.shiftdown(1)
-	//删除最后一个元素
-	mh.data = mh.data[0 : mh.count+1]
+	//删除最后一个元素 【注：】extractmin 后会改变 data的size
+	// mh.data = mh.data[0 : mh.count+1]
 	return min
 }
 func (mh *MinHeap) shiftdown(k int) {
@@ -64,15 +68,19 @@ func (mh *MinHeap) shiftdown(k int) {
 		k = j
 	}
 }
+func (mh *MinHeap) IsEmpty() bool {
+	return mh.count == 0
+}
+func (mh *MinHeap) less(i, j int) bool {
+	v := mh.data[i]
+	w := mh.data[j]
+	params := make([]reflect.Value, 2)
+	params[0] = reflect.ValueOf(v)
+	params[1] = reflect.ValueOf(w)
+	f := reflect.ValueOf(w).MethodByName("Less")
+	result := f.Call(params)
+	return result[0].Interface().(bool)
 
-//判断data[a] 是否小于 data[b]
-func (mh *MinHeap) less(a, b int) bool {
-	lessthan := false
-	switch mh.data[a].(type) {
-	case float64:
-		lessthan = mh.data[a].(float64) < mh.data[b].(float64)
-	}
-	return lessthan
 }
 func (mh *MinHeap) swap(k1, k2 int) {
 	mh.data[k1], mh.data[k2] = mh.data[k2], mh.data[k1]

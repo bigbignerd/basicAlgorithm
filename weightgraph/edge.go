@@ -1,5 +1,9 @@
 package weightgraph
 
+import (
+// "log"
+)
+
 //边的权重
 type Weight interface{}
 
@@ -33,4 +37,10 @@ func (e *Edge) Other(x int) int {
 		return e.b
 	}
 	return e.a
+}
+
+//比较edge权重
+func (e *Edge) Less(a, b *Edge) bool {
+
+	return (*a).weight.(float64) < (*b).weight.(float64)
 }

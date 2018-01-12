@@ -80,12 +80,18 @@ func TestHeapSortCompare(t *testing.T) {
 	t.Logf("v3执行时间:%.6f", v3Time)
 }
 
+type FloatHeap float64
+
+func (f FloatHeap) Less(i, j FloatHeap) bool {
+	return i < j
+}
 func TestMinheap(t *testing.T) {
-	data := []float64{12.1, 9.5, 8.3, 7.6, 6.1, 3.2}
+	data := []FloatHeap{12.1, 9.5, 8.3, 7.6, 6.1, 3.2}
 	miniheap := NewMinHeap(6)
 	for _, v := range data {
 		miniheap.Insert(v)
 	}
+	t.Log(miniheap.ExtractMin())
 	t.Log(miniheap.ExtractMin())
 	t.Log(miniheap.ExtractMin())
 	t.Log(miniheap.ExtractMin())

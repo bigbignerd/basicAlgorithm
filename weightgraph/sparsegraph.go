@@ -35,6 +35,12 @@ func (sg *SparseGraph) V() int {
 func (sg *SparseGraph) E() int {
 	return sg.m
 }
+func (sg *SparseGraph) GetEdge(v, w int) *Edge {
+	if has, edge := sg.HasEdge(v, w); has {
+		return edge
+	}
+	return nil
+}
 
 //添加边
 func (sg *SparseGraph) AddEdge(v, w int, weight Weight) {
@@ -51,21 +57,26 @@ func (sg *SparseGraph) AddEdge(v, w int, weight Weight) {
 }
 
 //是否有v->w的边
-func (sg *SparseGraph) HasEdge(v, w int) bool {
+func (sg *SparseGraph) HasEdge(v, w int) (bool, *Edge) {
 	if v < 0 || v > sg.n-1 || w < 0 || w > sg.n-1 {
-		return false
+		log.Fatal("v,w index out of range...")
+		return false, nil
 	}
 	for _, edge := range sg.g[v] {
 		if (*edge).Other(v) == w {
-			return true
+			return true, edge
 		}
 	}
-	return false
+	return false, nil
 }
 
 //遍历临边
 //c++的实现采用了一个迭代器来避免将g直接暴漏给用户
 func (sg *SparseGraph) AdjIterator(v int) []int {
+	if v < 0 || v >= sg.n {
+		log.Fatal("adj interator v越界")
+		return nil
+	}
 	var limb []int = make([]int, 0)
 	for _, edge := range sg.g[v] {
 		if edge != nil {
