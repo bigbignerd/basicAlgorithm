@@ -111,3 +111,6 @@ func (u *UnionFind) UnionElev4(p, q int) {
 		u.sz[proot] += u.sz[qroot]
 	}
 }
+func (u *UnionFind) IsConnectedv4(p, q int) bool {
+	return u.Findv4(p) == u.Findv4(q)
+}

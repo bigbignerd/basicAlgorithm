@@ -48,3 +48,10 @@ func TestPrimMST(t *testing.T) {
 		t.Logf("from:%d to:%d weight:%f", (*v).V(), (*v).W(), (*v).Weight())
 	}
 }
+func TestKruskalMST(t *testing.T) {
+	g := readGraph()
+	mst := NewKruskal(g)
+	for _, v := range mst.MstEdges() {
+		t.Logf("from:%d to:%d weight:%f", (*v).V(), (*v).W(), (*v).Weight())
+	}
+}
