@@ -25,7 +25,7 @@ func readGraph() Graph {
 	if err != nil {
 		log.Fatal("get file path error.")
 	}
-	filename1 := filepath.Join(curfolder, "testG2.txt")
+	filename1 := filepath.Join(curfolder, "testG3.txt")
 	n := 5
 	directed := true
 	// g1 := NewDGraph(n, directed)
@@ -60,4 +60,10 @@ func TestDijkstra(t *testing.T) {
 	g := readGraph()
 	dk := NewDijkstra(g, 0)
 	dk.Show(4)
+}
+
+func TestBellmanFord(t *testing.T) {
+	g := readGraph()
+	bf := NewDijkstra(g, 0)
+	bf.Show(4)
 }

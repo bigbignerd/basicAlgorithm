@@ -26,7 +26,7 @@ func NewDijkstra(g Graph, s int) *Dijkstra {
 	//创建一个最小索引堆
 	minheap := heap.NewIndexMinHeap(g.V())
 	//源点先入堆
-	startNodeEdge := NewEdge(0, 0, float64(0))
+	startNodeEdge := NewEdge(s, s, float64(0))
 	dk.from[dk.s] = startNodeEdge
 	dk.destTo[dk.s] = startNodeEdge.Weight()
 	dk.marked[dk.s] = true
