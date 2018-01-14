@@ -41,6 +41,12 @@ func (e *Edge) Other(x int) int {
 
 //比较edge权重
 func (e *Edge) Less(a, b *Edge) bool {
-
-	return (*a).weight.(float64) < (*b).weight.(float64)
+	var result bool = false
+	switch (*a).weight.(type) {
+	case int:
+		result = (*a).weight.(int) < (*b).weight.(int)
+	case float64:
+		result = (*a).weight.(float64) < (*b).weight.(float64)
+	}
+	return result
 }

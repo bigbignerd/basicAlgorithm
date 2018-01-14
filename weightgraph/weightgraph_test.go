@@ -25,9 +25,9 @@ func readGraph() Graph {
 	if err != nil {
 		log.Fatal("get file path error.")
 	}
-	filename1 := filepath.Join(curfolder, "testG1.txt")
-	n := 8
-	directed := false
+	filename1 := filepath.Join(curfolder, "testG2.txt")
+	n := 5
+	directed := true
 	// g1 := NewDGraph(n, directed)
 	g2 := NewSGraph(n, directed)
 	ReadGraph(g2, filename1)
@@ -54,4 +54,10 @@ func TestKruskalMST(t *testing.T) {
 	for _, v := range mst.MstEdges() {
 		t.Logf("from:%d to:%d weight:%f", (*v).V(), (*v).W(), (*v).Weight())
 	}
+}
+
+func TestDijkstra(t *testing.T) {
+	g := readGraph()
+	dk := NewDijkstra(g, 0)
+	dk.Show(4)
 }
